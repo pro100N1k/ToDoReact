@@ -1,18 +1,18 @@
 import React from 'react';
+import './App.scss';
+
 // import ReactDOM from 'react-dom';
 // import logo from './logo.svg';
-import Slider from 'react-slick';
-import './App.scss';
-import Header from "./Header/Header";
-import Sidebar from "./Sidebar/Sidebar";
-import Footer from "./Footer/Footer";
+// import Slider from 'react-slick';
+// import Calculator from "./Calculator/Calculator";
+
+// import Header from "./Header/Header";
+// import Sidebar from "./Sidebar/Sidebar";
+// import Footer from "./Footer/Footer";
 
 function App() {
 
-  const scaleTable = {
-    c: 'Celsius',
-    f: 'Fahrenheit'
-  }
+
 
   // class TodoApp extends React.Component {
   //   constructor(props) {
@@ -147,7 +147,8 @@ function App() {
       this.state = {
         items: [],
         text: "",
-        time: new Date(1)
+        time: new Date(1),
+
       };
 
       this.handleTextChange = this.handleTextChange.bind(this);
@@ -169,8 +170,6 @@ function App() {
         text: this.state.text,
         done: false
       };
-
-      let time = new Date().toLocaleDateString();
 
       this.setState((prevState) => ({
         items: prevState.items.concat(newItem),
@@ -196,6 +195,7 @@ function App() {
         return item.id !== itemId;
       });
 
+
       this.setState({
         items: [].concat(updatedItems)
       });
@@ -203,18 +203,15 @@ function App() {
 
     handleUpdateItem(itemId) {
 
+      let message = window.prompt('Message','');
+      console.log(message);
+
       let updateItems = this.state.items.filter( item => {
         return item.id !== itemId;
-        // let message = window.prompt('Message','');
-        // item.text = message;
-        // this.setState({text: item.text});
-        // console.log(1);
-        // console.log(message);
-
-        console.log(updateItems);
+        console.log('update' + updateItems);
       });
-    }
 
+    }
 
     render() {
       return (
@@ -226,12 +223,13 @@ function App() {
                   <input type="text" className="input__text" onChange={this.handleTextChange} value={this.state.text} />
                 </div>
                 <div className="btn-wrapper">
-                  <button className="btn input__btn" onClick={this.handleAddItem} disabled={!this.state.text}>{"Add #" + (this.state.items.length + 1)}</button>
+                  <button className="btn input__btn" onClick={this.handleAddItem} disabled={!this.state.text}>Add</button>
                 </div>
               </form>
+              <div className="todo-counter-wrapper">Cont tasks: <span className="todo-counter">{(this.state.items.length <= 0 ? 0 : this.state.items.length)}</span></div>
             </div>
             <div className="todo-body">
-              <TodoList items={this.state.items} onItemCompleted={this.markItemCompleted} onDeleteItem={this.handleDeleteItem} onUpdateItem={this.handleUpdateItem}/>
+              <TodoList items={this.state.items} onItemCompleted={this.markItemCompleted} onDeleteItem={this.handleDeleteItem} onUpdateItem={this.handleUpdateItem} />
             </div>
           </div>
       );
@@ -244,11 +242,14 @@ function App() {
       this.markCompleted = this.markCompleted.bind(this);
       this.deleteItem = this.deleteItem.bind(this);
       this.updateItem = this.updateItem.bind(this);
+
+      console.log('Console in TodoItem constructor' + this.props);
     }
 
     markCompleted(event) {
       this.props.onItemCompleted(this.props.id);
     }
+
 
     deleteItem(event) {
       this.props.onDeleteItem(this.props.id);
@@ -259,15 +260,10 @@ function App() {
       console.log(this.props.id);
     }
 
-    message(e) {
-      let message = window.prompt('Age');
-      console.log(message);
-    }
-
     render() {
       let itemClass = "form-check todoitem " + (this.props.completed ? "done" : "undone");
       let value = "todo__time" + (this.props.time);
-      // let time = new Date().toLocaleTimeString();
+
       return (
           <li className={itemClass} >
             <label className="form-check-label">
@@ -276,7 +272,7 @@ function App() {
                 <input type="checkbox" className="form-check-input" onChange={this.markCompleted} />
               </span>
               <button type="button" className="btn btn-danger btn-sm" onClick={this.deleteItem}>x</button>
-              <button type="button" className="btn btn-danger btn-sm" onClick={this.message}>1</button>
+              <button type="button" className="btn btn-danger btn-sm" onClick={this.updateItem}>1</button>
             </label>
             <label htmlFor="">
               <span className="todo__text">{this.props.text}</span>
@@ -299,56 +295,78 @@ function App() {
     }
   }
 
-  class SimpleSlider extends React.Component {
-    render() {
-      const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-      };
-      return (
-          <div className="slider">
-            <h2 className="slider__title"> Single Item</h2>
-            <Slider {...settings}>
-              <div className="slider-item-wrapper">
-                <div className="slider-item">
-                  <div className="slider__info">
-                    <h3>1</h3>
-                  </div>
-                  <div className="slider__img"></div>
-                </div>
-              </div>
-              <div className="slider-item-wrapper">
-                <div className="slider-item">
-                  <div className="slider__info">
-                    <h3>2</h3>
-                  </div>
-                  <div className="slider__img"></div>
-                </div>
-              </div>
-              <div className="slider-item-wrapper">
-                <div className="slider-item">
-                  <div className="slider__info">
-                    <h3>3</h3>
-                  </div>
-                  <div className="slider__img"></div>
-                </div>
-              </div>
-              <div className="slider-item-wrapper">
-                <div className="slider-item">
-                  <div className="slider__info">
-                    <h3>4</h3>
-                  </div>
-                  <div className="slider__img"></div>
-                </div>
-              </div>
-            </Slider>
-          </div>
-      );
-    }
-  }
+
+  // class Input extends React.Component{
+  //   constructor(props) {
+  //     super(props);
+  //     this.state = {value:''};
+  //     this.handleChange = this.handleChange.bind(this);
+  //   }
+  //
+  //   handleChange(e) {
+  //     this.setState({ value: e.target.value });
+  //   }
+  //
+  //   render () {
+  //     return (
+  //         <div>
+  //           <input type="text" onChange={this.handleChange}/>
+  //           <div className="text">{this.state.value}</div>
+  //         </div>
+  //     )
+  //   }
+  // }
+
+  // class SimpleSlider extends React.Component {
+  //   render() {
+  //     const settings = {
+  //       dots: true,
+  //       infinite: true,
+  //       speed: 500,
+  //       slidesToShow: 1,
+  //       slidesToScroll: 1
+  //     };
+  //     return (
+  //         <div className="slider">
+  //           <h2 className="slider__title"> Single Item</h2>
+  //           <Slider {...settings}>
+  //             <div className="slider-item-wrapper">
+  //               <div className="slider-item">
+  //                 <div className="slider__info">
+  //                   <h3>1</h3>
+  //                 </div>
+  //                 <div className="slider__img"></div>
+  //               </div>
+  //             </div>
+  //             <div className="slider-item-wrapper">
+  //               <div className="slider-item">
+  //                 <div className="slider__info">
+  //                   <h3>2</h3>
+  //                 </div>
+  //                 <div className="slider__img"></div>
+  //               </div>
+  //             </div>
+  //             <div className="slider-item-wrapper">
+  //               <div className="slider-item">
+  //                 <div className="slider__info">
+  //                   <h3>3</h3>
+  //                 </div>
+  //                 <div className="slider__img"></div>
+  //               </div>
+  //             </div>
+  //             <div className="slider-item-wrapper">
+  //               <div className="slider-item">
+  //                 <div className="slider__info">
+  //                   <h3>4</h3>
+  //                 </div>
+  //                 <div className="slider__img"></div>
+  //               </div>
+  //             </div>
+  //           </Slider>
+  //         </div>
+  //     );
+  //   }
+  // }
 
   // class Toggle extends React.Component{
   //   constructor(props) {
@@ -374,164 +392,35 @@ function App() {
   // A little enhanced of Facebook's React TODO example.
 // Want to be looked Reminder alike.
 
-  class Input extends React.Component{
-    constructor(props) {
-      super(props);
-      this.state = {value:''};
-      this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-      this.setState({ value: e.target.value });
-    }
-
-    render () {
-      return (
-          <div>
-            <input type="text" onChange={this.handleChange}/>
-            <div className="text">{this.state.value}</div>
-          </div>
-      )
-    }
-  }
-
-  function toCelsius(fahrenheit) {
-    return (fahrenheit - 32) * 5 / 9;
-  }
-
-  function toFahrenheit(celsius) {
-    return (celsius * 9 / 5) + 32;
-  }
-
-  function tryConvert(temperature, convert) {
-    const input = parseFloat(temperature);
-    if (Number.isNaN(input)) {
-      return '';
-    }
-    const output = convert(input);
-    console.log(output);
-    const rounded = Math.round(output * 1000) / 1000;
-    return rounded.toString();
-  }
-
-  function BoilingVerdict(props) {
-    if (props.celsius >= 100) {
-      return <p className="conclusion">The water would boil.</p>;
-    }
-    return <p className="conclusion">The water would not boil.</p>;
-  }
-
-  class TemperatureInput extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-      this.props.onTemperatureChange(e.target.value);
-    }
-
-    render() {
-      const temperature = this.props.temperature;
-      const scale = this.props.scale;
-      return (
-          <fieldset>
-            <legend align="left">Enter temperature in {scaleTable[scale]}:</legend>
-            <div className="input-wrapper">
-              <input value={temperature} onChange={this.handleChange} />
-              <span className="inputBorder"></span>
-            </div>
-          </fieldset>
-      );
-    }
-  }
-
-  class Calculator extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
-      this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
-      this.state = {temperature: '', scale: 'c'};
-    }
-
-    handleCelsiusChange(temperature) {
-      this.setState({scale: 'c', temperature});
-    }
-
-    handleFahrenheitChange(temperature) {
-      this.setState({scale: 'f', temperature});
-    }
-
-    render() {
-      const scale = this.state.scale;
-      const temperature = this.state.temperature;
-      const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
-      const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
-
-      return (
-          <div className="calculate">
-            <TemperatureInput
-                scale="c"
-                temperature={celsius}
-                onTemperatureChange={this.handleCelsiusChange} />
-            <TemperatureInput
-                scale="f"
-                temperature={fahrenheit}
-                onTemperatureChange={this.handleFahrenheitChange} />
-            <BoilingVerdict celsius={parseFloat(celsius)} />
-          </div>
-      );
-    }
-  }
-
 
   // View Main App
 
   return (
       <div className="App">
 
-        <Header />
-        {/*<header className="App-header header">*/}
-        {/*  /!*<img src={logo} className="App-logo" alt="logo" />*!/*/}
-        {/*  <p>*/}
-        {/*    Edit <code>src/App.js</code> and save to reload.*/}
-        {/*  </p>*/}
-        {/*  <a*/}
-        {/*      className="App-link"*/}
-        {/*      href="https://reactjs.org"*/}
-        {/*      target="_blank"*/}
-        {/*      rel="noopener noreferrer"*/}
-        {/*  >*/}
-        {/*    Learn React*/}
-        {/*  </a>*/}
-        {/*  <Timer />*/}
-
-        {/*  /!*<Toggle/>*!/*/}
-        {/*</header>*/}
+        {/*<Header />*/}
 
         <main className="main">
           <div className="banner">
           </div>
 
-          <div className="slider-wrapper">
-            <SimpleSlider/>
-          </div>
+          {/*<div className="slider-wrapper">*/}
+          {/*  <SimpleSlider/>*/}
+          {/*</div>*/}
 
-          <Sidebar />
+          {/*<Sidebar />*/}
           <div className="todo-wrapper">
           <TodoApp />
           </div>
 
           <div className="calculate-wrapper">
-            <Input/>
-            <Calculator />
+            {/*<Input/>*/}
+            {/*<Calculator />*/}
           </div>
 
         </main>
 
-
-
-        <Footer className="App-footer" />
+        {/*<Footer className="App-footer" />*/}
       </div>
   );
 
