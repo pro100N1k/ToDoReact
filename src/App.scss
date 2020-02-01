@@ -198,7 +198,6 @@ header, main, footer {
     text-align: center;
   }
 
-
   &-counter {
     font-size: 1.6rem;
     font-weight: bold;
@@ -316,32 +315,11 @@ header, main, footer {
               border-right: 1px solid #eeeeee;
               border-left: 1px solid #eeeeee;
             }
-            button {
-             border: none;
-            }
           }
           &:nth-of-type(2) {
             border: 1px solid #eeeeee;
             border-top-style: none;
-
-
           }
-        }
-
-        button {
-          flex: none;
-          width: 5rem;
-          height: 5rem;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #ffffff;
-          border: 1px solid #eeeeee;
-          background: transparent;
-          transition: all 0.5s ease-in-out;
-          cursor: pointer;
-          z-index: 1;
         }
 
         .checkbox {
@@ -360,6 +338,28 @@ header, main, footer {
         }
       }
     }
+  }
+
+  &__btn {
+
+    flex: none;
+    width: 5rem;
+    height: 5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    z-index: 1;
+
+    border: none;
+    &:first-of-type {
+      border-right: 1px solid #eeeeee;
+    }
+
+    color: #252525;
   }
 
 }

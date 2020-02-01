@@ -19,6 +19,7 @@ function App() {
       this.state = {
         items: [],
         text: "",
+        updateText: "",
         time: new Date(1),
 
       };
@@ -76,12 +77,18 @@ function App() {
     handleUpdateItem(itemId) {
 
       let message = window.prompt('Message','');
-      console.log(message);
 
-      let updateItems = this.state.items.filter( item => {
-        return item.id !== itemId;
-        console.log('update' + updateItems);
+      this.state.items.filter( item => {
+
+        if(item.id === itemId) {
+
+            this.setState({
+                updateText : message,
+            });
+        }
+
       });
+
 
     }
 
@@ -114,8 +121,6 @@ function App() {
       this.markCompleted = this.markCompleted.bind(this);
       this.deleteItem = this.deleteItem.bind(this);
       this.updateItem = this.updateItem.bind(this);
-
-      console.log('Console in TodoItem constructor' + this.props);
     }
 
     markCompleted(event) {
@@ -129,7 +134,6 @@ function App() {
 
     updateItem(event) {
       this.props.onUpdateItem(this.props.id);
-      console.log(this.props.id);
     }
 
     render() {
@@ -143,11 +147,11 @@ function App() {
               <span className="checkbox-wrapper">
                 <input type="checkbox" className="form-check-input" onChange={this.markCompleted} />
               </span>
-              <button type="button" className="btn btn-danger btn-sm" onClick={this.deleteItem}>x</button>
-              <button type="button" className="btn btn-danger btn-sm" onClick={this.updateItem}>1</button>
+              <button type="button" className="btn todo__btn" onClick={this.deleteItem}>x</button>
+              <button type="button" className="btn todo__btn" onClick={this.updateItem}>1</button>
             </label>
             <label htmlFor="">
-              <span className="todo__text">{this.props.text}</span>
+              <span className="todo__text">{this.props.text}{this.props.updateText}</span>
             </label>
           </li>
       );
